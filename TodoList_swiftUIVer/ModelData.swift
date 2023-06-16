@@ -22,7 +22,8 @@ class ModelData:ObservableObject{
     
     init(){
         todoList = [
-            Todo(title: "Todo List App 만들기", memo: "SwiftUI", deadline: Date(), checkDate: false, isChecked: false, isClip: false)
+            Todo(title: "Todo List App 만들기", memo: "SwiftUI", deadline: Date(), checkDate: false, isChecked: false, isClip: false),
+            Todo(title: "면접 질문 준비", memo: "IOS/CS", deadline: Date(), checkDate: true, isChecked: false, isClip: false)
         ]
     }
 }

@@ -18,7 +18,7 @@ struct ListRow: View {
         _isClip = State(initialValue: todo.isClip)
     }
     var body: some View {
-        HStack{
+        HStack(){
             Button{
                 isChecked.toggle()
             }label: {
@@ -26,18 +26,18 @@ struct ListRow: View {
             }
             .buttonStyle(.plain)
             .font(.title)
+            .padding(.trailing)
             VStack(alignment: .leading){
                 //title 부분
                 if isChecked {
                     Text(todo.title)
                         .foregroundColor(.gray)
                         .strikethrough()
-                        .font(.title)
                         .fontWeight(.bold)
                 }else{
                     Text(todo.title)
-                        .font(.title)
                         .fontWeight(.bold)
+
                 }
                 //마감일 부분
                 if todo.checkDate {
@@ -48,6 +48,7 @@ struct ListRow: View {
                 }
                 
             }
+            Spacer()
             Button{
                 isClip.toggle()
             }label: {
