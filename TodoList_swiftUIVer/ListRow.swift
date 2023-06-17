@@ -42,9 +42,10 @@ struct ListRow: View {
                 //마감일 부분
                 if todo.checkDate {
                     HStack{
-                        Image(systemName: "calendar.circle")
+                        Image(systemName: "calendar")
                         Text(dateFormatter(date: todo.deadline))
                     }
+                    .foregroundColor(isChecked ? .gray : .black)
                 }
                 
             }

@@ -18,7 +18,7 @@ struct ListView: View {
                     //네비게이션 링크 화살표 없애기
                     ZStack{
                         NavigationLink{
-                            //디테일뷰 연결자리
+                            DetailView(todo: todo)
                         }label: {}
                         .opacity(0)
                         HStack{

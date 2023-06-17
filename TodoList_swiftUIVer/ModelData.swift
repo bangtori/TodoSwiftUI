@@ -35,4 +35,7 @@ class ModelData:ObservableObject{
         }
         return []
     }
+    func checkPin(){
+        
+    }
 }
