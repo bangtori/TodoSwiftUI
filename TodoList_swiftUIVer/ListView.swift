@@ -37,7 +37,7 @@ struct ListView: View {
                 }
             }
             .sheet(isPresented: $showAddView) {
-                //Add View 연결
+                AddView(showAddView:$showAddView)
             }
         }
         
