@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo:Identifiable{
+struct Todo:Identifiable, Codable{
     var id = UUID()
     var title:String
     var memo:String
@@ -19,11 +19,20 @@ struct Todo:Identifiable{
 
 class ModelData:ObservableObject{
     @Published var todoList: [Todo] = []
-    
-    init(){
-        todoList = [
-            Todo(title: "Todo List App 만들기", memo: "SwiftUI", deadline: Date(), checkDate: false, isChecked: false, isClip: false),
-            Todo(title: "면접 질문 준비", memo: "IOS/CS", deadline: Date(), checkDate: true, isChecked: false, isClip: false)
-        ]
+    func saveTodo(){
+        let encoder:JSONEncoder = JSONEncoder()
+        if let encoded = try? encoder.encode(todoList){
+            UserDefaults.standard.set(encoded, forKey: "todo")
+        }
+    }
+    func loadTodo()->[Todo]{
+        let decoder:JSONDecoder = JSONDecoder()
+        if let data = UserDefaults.standard.object(forKey: "todo") as? Data{
+            if let saveData = try? decoder.decode([Todo].self, from: data){
+                print(saveData)
+                return saveData
+            }
+        }
+        return []
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ListView: View {
     @EnvironmentObject var modelData: ModelData
     @State var showAddView:Bool = false
+
     var body: some View {
         NavigationStack{
             List{
@@ -27,6 +28,12 @@ struct ListView: View {
                 }
                 .onDelete(perform: removeRows)
                 
+            }
+            .onAppear{
+                modelData.todoList = modelData.loadTodo()
+            }
+            .onDisappear{
+                modelData.saveTodo()
             }
             .navigationTitle("제발 좀 하자")
             .toolbar(){
