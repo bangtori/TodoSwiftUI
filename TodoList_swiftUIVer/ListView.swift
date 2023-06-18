@@ -47,7 +47,6 @@ struct ListView: View {
                 AddView(showAddView:$showAddView)
             }
         }
-        
     }
     func removeRows(at offsets: IndexSet) {
         modelData.todoList.remove(atOffsets: offsets)

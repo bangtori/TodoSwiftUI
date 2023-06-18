@@ -12,7 +12,7 @@ struct DetailView: View {
     var todo : Todo
     var body: some View {
         NavigationStack{
-            VStack(alignment:.leading){
+            VStack(){
                 if todo.checkDate{
                     HStack{
                         Text("마감일")
@@ -22,17 +22,35 @@ struct DetailView: View {
                     }
                     .padding(.bottom)
                 }
-                Text("Memo")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Divider()
-                    .padding(.bottom)
-                Text(todo.memo)
-
+                VStack(alignment:.leading){
+                    Text("Memo")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    Divider()
+                        .padding(.bottom)
+                    Text(todo.memo)
+                }
                 Spacer()
+                Button{
+                    
+                }label: {
+                    Text("삭 제")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                }
             }
             .padding()
             .navigationTitle(todo.title)
+            .toolbar{
+                ToolbarItem (placement: .navigationBarTrailing){
+                    NavigationLink{
+                        EditView(updateTodo: todo)
+                    }label: {
+                        Text("수정")
+                    }
+                }
+
+            }
         }
     }
     func dateFormatter(date:Date) -> String{

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ListRow: View {
+    @EnvironmentObject private var modelData:ModelData
     @State private var isChecked:Bool
     @State private var isClip:Bool
-    private var todo:Todo
+    var todo:Todo
 
     init(todo:Todo){
         self.todo = todo
+        //@State를 가진 속성을 외부에서 값을 가져와 생성시 주입
         _isChecked = State(initialValue: todo.isChecked)
         _isClip = State(initialValue: todo.isClip)
     }
@@ -21,8 +23,10 @@ struct ListRow: View {
         HStack(){
             Button{
                 isChecked.toggle()
+                modelData.checkComplete(todo: todo)
             }label: {
                 Image(systemName: isChecked ? "checkmark.circle.fill":"circle")
+                
             }
             .buttonStyle(.plain)
             .font(.title)
@@ -52,6 +56,7 @@ struct ListRow: View {
             Spacer()
             Button{
                 isClip.toggle()
+                modelData.checkPin(todo: todo)
             }label: {
                 Image(systemName: isClip ? "pin.fill":"pin")
             }
@@ -71,5 +76,6 @@ struct ListRow: View {
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
         ListRow(todo: Todo(title: "Todo List App 만들기", memo: "SwiftUI", deadline: Date(), checkDate: true, isChecked: false, isClip: false))
+            .environmentObject(ModelData())
     }
 }
