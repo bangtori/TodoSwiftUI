@@ -31,6 +31,7 @@ struct ListView: View {
             }
             .onAppear{
                 modelData.todoList = modelData.loadTodo()
+                modelData.updateCounts()
             }
             .onDisappear{
                 modelData.saveTodo()

@@ -22,7 +22,7 @@ class ModelData:ObservableObject{
     @Published var checkCount = 0
     @Published var pinCount = 0
 
-    private func updateCounts(){
+    func updateCounts(){
         checkCount = todoList.filter {$0.isChecked}.count
         pinCount = todoList.filter {$0.isClip}.count
     }
@@ -86,6 +86,7 @@ class ModelData:ObservableObject{
             checkCount -= 1
         }
         todoList.remove(at: idx)
-        todoList.insert(updateTodo, at: insertIdx)
+                todoList.insert(updateTodo, at: insertIdx)
+
     }
 }

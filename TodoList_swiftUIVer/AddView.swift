@@ -62,7 +62,7 @@ struct AddView: View {
     }
     func addTodo(){
         let newTodo:Todo = Todo(title: title, memo: memo, deadline: date, checkDate: checkDate, isChecked: false, isClip: false)
-        modelData.todoList.append(newTodo)
+        modelData.todoList.insert(newTodo, at: modelData.todoList.count - modelData.checkCount)
     }
 }
 
