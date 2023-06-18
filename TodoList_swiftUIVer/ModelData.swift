@@ -31,6 +31,11 @@ class ModelData:ObservableObject{
         todoList[idx] = todo
         saveTodo()
     }
+    func deleteTodo(_ todo:Todo){
+        guard let idx = todoList.firstIndex(where: { $0.id == todo.id })else{ return }
+        todoList.remove(at: idx)
+        saveTodo()
+    }
     func saveTodo(){
         let encoder:JSONEncoder = JSONEncoder()
         if let encoded = try? encoder.encode(todoList){

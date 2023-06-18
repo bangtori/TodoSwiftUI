@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var modelData:ModelData
     @State var updateTodo:Todo
     var body: some View {
@@ -43,7 +43,7 @@ struct EditView: View {
                 Spacer()
                 Button{
                     modelData.updateTodo(updateTodo)
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }label: {
                     Text("저장 하기")
                         .padding(.horizontal)

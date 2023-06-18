@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var modelData: ModelData
+    @State private var showDeleteAlert:Bool = false
     var todo : Todo
     var body: some View {
         NavigationStack{
@@ -32,11 +34,19 @@ struct DetailView: View {
                 }
                 Spacer()
                 Button{
-                    
+                    showDeleteAlert.toggle()
                 }label: {
                     Text("삭 제")
                         .font(.title2)
                         .foregroundColor(.red)
+                }
+                .alert("할 일 삭제",isPresented: $showDeleteAlert) {
+                    Button("Yes", role: .destructive){
+                        modelData.deleteTodo(todo)
+                        dismiss()
+                    }
+                }message: {
+                    Text("정말 이 일을 삭제하시겠습니까?")
                 }
             }
             .padding()
