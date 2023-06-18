@@ -15,15 +15,19 @@ struct DetailView: View {
     var body: some View {
         NavigationStack{
             VStack(){
-                if todo.checkDate{
-                    HStack{
-                        Text("마감일")
-                        Spacer()
-                        Image(systemName: "calendar")
-                        Text("\(dateFormatter(date:todo.deadline))")
+                HStack{
+                    Text("마감일")
+                    Spacer()
+                    Image(systemName: "calendar")
+                    if todo.checkDate{
+                        Text(modelData.dateFormatter(todo))
                     }
-                    .padding(.bottom)
+                    else{
+                        Text("지정 안함")
+                            .foregroundColor(.gray)
+                    }
                 }
+                .padding(.bottom)
                 VStack(alignment:.leading){
                     Text("Memo")
                         .font(.title2)
@@ -63,15 +67,11 @@ struct DetailView: View {
             }
         }
     }
-    func dateFormatter(date:Date) -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy.MM.dd(EEE) HH:mm 까지"
-        return formatter.string(from: date)
-    }
 }
 
 struct DetailVoew_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(todo:Todo(title: "TodoList App 만들기", memo: "swiftUI로 구현", deadline: Date(), checkDate: true, isChecked: false, isClip: false))
+            .environmentObject(ModelData())
     }
 }

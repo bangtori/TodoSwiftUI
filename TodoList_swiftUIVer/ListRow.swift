@@ -47,12 +47,13 @@ struct ListRow: View {
                 if todo.checkDate {
                     HStack{
                         Image(systemName: "calendar")
-                        Text(dateFormatter(date: todo.deadline))
+                        Text(modelData.dateFormatter(todo))
                     }
                     .foregroundColor(isChecked ? .gray : .black)
                 }
                 
             }
+            .padding(.vertical)
             Spacer()
             Button{
                 isClip.toggle()
@@ -63,14 +64,9 @@ struct ListRow: View {
             .buttonStyle(.plain)
             .font(.title)
             .foregroundColor(.red)
-            .padding()
         }
     }
-    func dateFormatter(date:Date) -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy.MM.dd HH:mm"
-        return formatter.string(from: date)
-    }
+
 }
 
 struct ListRow_Previews: PreviewProvider {

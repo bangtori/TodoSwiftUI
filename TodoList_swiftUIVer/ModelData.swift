@@ -26,6 +26,7 @@ class ModelData:ObservableObject{
         checkCount = todoList.filter {$0.isChecked}.count
         pinCount = todoList.filter {$0.isClip}.count
     }
+    
     func updateTodo(_ todo:Todo){
         guard let idx = todoList.firstIndex(where: { $0.id == todo.id })else{ return }
         todoList[idx] = todo
@@ -36,6 +37,7 @@ class ModelData:ObservableObject{
         todoList.remove(at: idx)
         saveTodo()
     }
+    
     func saveTodo(){
         let encoder:JSONEncoder = JSONEncoder()
         if let encoded = try? encoder.encode(todoList){
@@ -101,5 +103,11 @@ class ModelData:ObservableObject{
         }
         todoList.remove(at: idx)
         todoList.insert(updateTodo, at: insertIdx)
+    }
+    
+    func dateFormatter(_ todo:Todo) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd(EEE) HH:mm 까지"
+        return formatter.string(from: todo.deadline)
     }
 }
