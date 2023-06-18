@@ -11,6 +11,7 @@ struct EditView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var modelData:ModelData
     @State var updateTodo:Todo
+    @State private var showSaveAlert:Bool = false
     var body: some View {
         NavigationStack{
             VStack(spacing:10){
@@ -42,11 +43,18 @@ struct EditView: View {
                 }
                 Spacer()
                 Button{
-                    modelData.updateTodo(updateTodo)
-                    dismiss()
+                    showSaveAlert.toggle()
                 }label: {
                     Text("저장 하기")
                         .padding(.horizontal)
+                }
+                .alert("수정하기",isPresented: $showSaveAlert) {
+                    Button("Yes", role: .destructive){
+                        modelData.updateTodo(updateTodo)
+                        dismiss()
+                    }
+                }message: {
+                    Text("정말 이 일을 수정하시겠습니까?")
                 }
                 .disabled(updateTodo.title == "")
                 .buttonStyle(.bordered)
