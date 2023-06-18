@@ -14,6 +14,7 @@ struct AddView: View {
     @State private var checkDate:Bool = false
     @State private var date: Date = Date()
     @Binding var showAddView : Bool
+    @State private var showAddAlert:Bool = false
     
     var body: some View {
         NavigationStack{
@@ -51,12 +52,19 @@ struct AddView: View {
             .navigationTitle("할 일 추가")
             .toolbar {
                 Button{
-                    addTodo()
-                    showAddView.toggle()
+                    showAddAlert.toggle()
                 }label: {
                     Text("추가")
                 }
                 .disabled(title == "")
+                .alert("저장하기",isPresented: $showAddAlert) {
+                    Button("Yes", role: .destructive){
+                        addTodo()
+                        showAddView.toggle()
+                    }
+                }message: {
+                    Text("정말 이 일을 추가하시겠습니까?")
+                }
             }
         }
     }
