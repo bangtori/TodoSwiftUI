@@ -59,7 +59,14 @@ class ModelData:ObservableObject{
             insertIdx = pinCount
             pinCount += 1
         }else{
-            insertIdx = pinCount-1
+            //고정 해제 시
+            if todo.isChecked {
+                //완료 항목이면 완료 항목쪽으로
+                insertIdx = todoList.count - checkCount
+            }else{
+                //아니면 그냥 핀 밑
+                insertIdx = pinCount-1
+            }
             pinCount -= 1
         }
         todoList.remove(at: idx)
@@ -72,21 +79,22 @@ class ModelData:ObservableObject{
         let listCnt:Int = todoList.count
         var updateTodo = todoList[idx]
         updateTodo.isChecked.toggle()
-        if todo.isClip{
-            //고정 내용은 안내림
-            insertIdx = idx
-        }
-        else if updateTodo.isChecked {
+
+        if updateTodo.isChecked {
             //체크상태로 바꿀 때
             insertIdx = listCnt - (checkCount+1)
             checkCount += 1
         }else{
             //체크 해제할 때
-            insertIdx = listCnt - checkCount
+            if todo.isClip {
+                //고정 항목이라면
+                insertIdx = 0
+            }else{
+                insertIdx = listCnt - checkCount
+            }
             checkCount -= 1
         }
         todoList.remove(at: idx)
-                todoList.insert(updateTodo, at: insertIdx)
-
+        todoList.insert(updateTodo, at: insertIdx)
     }
 }
